@@ -1,0 +1,24 @@
+body {
+    background-color: #121212;
+    color: #fff;
+}
+.navbar, .dropdown-menu {
+    background-color: #1f1f1f !important;
+}
+.navbar-brand, .nav-link, .dropdown-item {
+    color: #fff !important;
+}
+.card {
+    background-color: #1f1f1f;
+    border: none;
+    color: #fff;
+}
+.card-title {
+    color: #fff;
+}
+.card-text {
+    color: #ccc;
+}
+.search-bar {
+    min-width: 250px;
+}

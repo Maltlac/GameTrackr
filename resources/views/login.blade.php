@@ -26,31 +26,6 @@
             </div>
         </div>
     </div>
-    <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const messageDiv = document.getElementById('message');
-        messageDiv.innerHTML = '';
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            const data = await response.json();
-            if (response.ok && data.token) {
-                localStorage.setItem('token', data.token);
-                messageDiv.innerHTML = '<div class="alert alert-success">Connexion réussie !</div>';
-            } else {
-                let msg = data.message || (data.errors ? Object.values(data.errors).join('<br>') : 'Erreur inconnue');
-                messageDiv.innerHTML = '<div class="alert alert-danger">' + msg + '</div>';
-            }
-        } catch (err) {
-            messageDiv.innerHTML = '<div class="alert alert-danger">Erreur réseau</div>';
-        }
-    });
-    </script>
+    <script src="{{ asset('js/login.js') }}"></script>
 </body>
 </html>
