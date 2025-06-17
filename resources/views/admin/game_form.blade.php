@@ -2,62 +2,13 @@
 <html lang="fr" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Admin</title>
+    <title>Ajouter un jeu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-dark text-light">
 <div class="container mt-5">
-    <h1 class="mb-4">Administration</h1>
-    <p>Gestion des jeux, plateformes et catégories.</p>
-
-
-    <h2 class="mt-5">Ajouter un jeu</h2>
-    <form id="addGameForm">
-        <div class="mb-3">
-            <label class="form-label">Titre</label>
-            <input type="text" class="form-control" id="gameTitle" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea class="form-control" id="gameDescription"></textarea>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Couverture (URL)</label>
-            <input type="text" class="form-control" id="gameCover">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Date de sortie</label>
-            <input type="date" class="form-control" id="gameRelease">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Genres</label>
-            <select multiple class="form-select" id="gameGenres">
-                @foreach($genres as $genre)
-                    <option value="{{ $genre->id_genre }}">{{ $genre->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Plateformes</label>
-            @foreach($platforms as $platform)
-                <div class="input-group mb-2">
-                    <span class="input-group-text">{{ $platform->name }}</span>
-                    <input type="text" class="form-control platform-link" data-platform-id="{{ $platform->id_platform }}" placeholder="Lien optionnel">
-                </div>
-            @endforeach
-        </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
-    </form>
-    <div id="gameMessage" class="mt-3"></div>
-
-    <hr class="my-5">
-
-    <h2>Ajouter une plateforme</h2>
-    <form id="addPlatformForm" class="mb-3">
-        <div class="mb-3">
-            <label class="form-label">Nom</label>
-            <input type="text" class="form-control" id="platformName" required>
+    <h1 class="mb-4">Ajouter un jeu</h1>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
