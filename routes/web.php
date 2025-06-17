@@ -12,7 +12,13 @@ Route::get('/suggest-platform/{game?}', function ($game = null) {
     return view('suggest_platform', ['game' => $game]);
 })->name('suggest.platform');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.panel');
+Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/games/create', [AdminController::class, 'createGame'])->name('games.create');
+    Route::get('/platforms/create', [AdminController::class, 'createPlatform'])->name('platforms.create');
+    Route::get('/genres/create', [AdminController::class, 'createGenre'])->name('genres.create');
+    Route::get('/suggestions', [AdminController::class, 'suggestions'])->name('suggestions');
+});
 
 // Fallback : toute autre route renvoie vers la home
 Route::fallback(function () {
