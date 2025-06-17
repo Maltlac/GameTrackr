@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\GameSuggestionController;
+use App\Http\Controllers\PlatformSuggestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,11 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/games', [GameController::class, 'index']);
 Route::post('/games', [GameController::class, 'store']);
 Route::get('/games/{id_game}', [GameController::class, 'show']);
+
+Route::post('/suggestions/games', [GameSuggestionController::class, 'store']);
+Route::post('/suggestions/platforms', [PlatformSuggestionController::class, 'store']);
+
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/suggestions/games/{suggestion}/approve', [GameSuggestionController::class, 'approve']);
+    Route::post('/suggestions/platforms/{suggestion}/approve', [PlatformSuggestionController::class, 'approve']);
+});
