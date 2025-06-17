@@ -6,8 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GameSuggestionController;
 use App\Http\Controllers\PlatformSuggestionController;
+
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\GenreController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +31,16 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/games', [GameController::class, 'index']);
+
+Route::post('/games', [GameController::class, 'store']);
+
 Route::get('/games/{id_game}', [GameController::class, 'show']);
 
 Route::post('/suggestions/games', [GameSuggestionController::class, 'store']);
 Route::post('/suggestions/platforms', [PlatformSuggestionController::class, 'store']);
 
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+
     Route::post('/games', [GameController::class, 'store']);
     Route::put('/games/{game}', [GameController::class, 'update']);
     Route::delete('/games/{game}', [GameController::class, 'destroy']);

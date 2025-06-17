@@ -11,6 +11,7 @@
     <h1 class="mb-4">Administration</h1>
     <p>Gestion des jeux, plateformes et catégories.</p>
 
+
     <h2 class="mt-5">Ajouter un jeu</h2>
     <form id="addGameForm">
         <div class="mb-3">
@@ -78,6 +79,13 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>{{ $suggestion->title }}</span>
                 <button class="btn btn-sm btn-success approve-game" data-id="{{ $suggestion->id }}">Valider</button>
+
+    <h2 class="mt-5">Suggestions de jeux</h2>
+    <ul class="list-group mb-4">
+        @forelse($gameSuggestions as $suggestion)
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ $suggestion->title }}</span>
+
             </li>
         @empty
             <li class="list-group-item">Aucune suggestion.</li>
@@ -85,11 +93,18 @@
     </ul>
 
     <h2>Suggestions de plateformes</h2>
+
     <ul class="list-group" id="platformSuggestions">
         @forelse($platformSuggestions as $suggestion)
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>{{ $suggestion->platform }} - {{ $suggestion->link }}</span>
                 <button class="btn btn-sm btn-success approve-platform" data-id="{{ $suggestion->id }}">Valider</button>
+
+    <ul class="list-group">
+        @forelse($platformSuggestions as $suggestion)
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ $suggestion->platform }} - {{ $suggestion->link }}</span>
+
             </li>
         @empty
             <li class="list-group-item">Aucune suggestion.</li>
