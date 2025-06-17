@@ -15,7 +15,7 @@ class UsersTableTest extends TestCase
     {
         $this->assertTrue(Schema::hasTable('users'));
         $this->assertTrue(Schema::hasColumns('users', [
-            'id_user', 'name', 'email', 'password', 'created_at', 'updated_at'
+            'id_user', 'name', 'email', 'password', 'is_admin', 'created_at', 'updated_at'
         ]));
     }
 
@@ -25,6 +25,7 @@ class UsersTableTest extends TestCase
             'name' => 'testuser',
             'email' => 'test@example.com',
             'password' => bcrypt('secret'),
+            'is_admin' => true,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

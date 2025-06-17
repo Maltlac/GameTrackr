@@ -16,6 +16,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             if (data.user && data.user.name) {
                 localStorage.setItem('name', data.user.name);
             }
+            if (data.user && data.user.is_admin !== undefined) {
+                localStorage.setItem('is_admin', data.user.is_admin ? '1' : '0');
+            }
             messageDiv.innerHTML = '<div class="alert alert-success">Connexion réussie !</div>';
             window.location.href = 'home';
         } else {

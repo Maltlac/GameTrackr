@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\GameSuggestionController;
+use App\Http\Controllers\PlatformSuggestionController;
+use App\Http\Controllers\PlatformController;
+use App\Http\Controllers\GenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +29,24 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/games', [GameController::class, 'index']);
-Route::post('/games', [GameController::class, 'store']);
 Route::get('/games/{id_game}', [GameController::class, 'show']);
+
+Route::post('/suggestions/games', [GameSuggestionController::class, 'store']);
+Route::post('/suggestions/platforms', [PlatformSuggestionController::class, 'store']);
+
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/games', [GameController::class, 'store']);
+    Route::put('/games/{game}', [GameController::class, 'update']);
+    Route::delete('/games/{game}', [GameController::class, 'destroy']);
+
+    Route::post('/platforms', [PlatformController::class, 'store']);
+    Route::put('/platforms/{platform}', [PlatformController::class, 'update']);
+    Route::delete('/platforms/{platform}', [PlatformController::class, 'destroy']);
+
+    Route::post('/genres', [GenreController::class, 'store']);
+    Route::put('/genres/{genre}', [GenreController::class, 'update']);
+    Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
+
+    Route::post('/suggestions/games/{suggestion}/approve', [GameSuggestionController::class, 'approve']);
+    Route::post('/suggestions/platforms/{suggestion}/approve', [PlatformSuggestionController::class, 'approve']);
+});

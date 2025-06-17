@@ -1,6 +1,7 @@
 function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
+    localStorage.removeItem('is_admin');
     window.location.reload();
 }
 
@@ -9,6 +10,7 @@ function renderNavbar() {
     navbarRight.innerHTML = '';
     const token = localStorage.getItem('token');
     const name = localStorage.getItem('name') || 'Utilisateur';
+    const isAdmin = localStorage.getItem('is_admin');
     if (!token) {
         navbarRight.innerHTML = `
             <li class="nav-item">
@@ -25,6 +27,7 @@ function renderNavbar() {
                     <i class="bi bi-person-circle"></i> ${name}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
+                    ${isAdmin === '1' || isAdmin === 'true' ? '<li><a class="dropdown-item" href="/admin">Administration</a></li><li><hr class="dropdown-divider"></li>' : ''}
                     <li><a class="dropdown-item" href="#">Ma wishlist</a></li>
                     <li><a class="dropdown-item" href="#">Mes jeux</a></li>
                     <li><hr class="dropdown-divider"></li>
