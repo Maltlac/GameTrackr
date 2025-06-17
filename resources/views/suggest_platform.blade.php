@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Proposer une plateforme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="mb-4">Proposer une plateforme</h1>
+    <form id="suggestPlatformForm">
+        <input type="hidden" id="id_game" value="{{ $game ?? '' }}">
+        <div class="mb-3">
+            <label class="form-label">Plateforme</label>
+            <input type="text" class="form-control" id="platform" required>
+        </div>
+                <div class="mb-3">
+            <label class="form-label">Lien</label>
+            <input type="text" class="form-control" id="link">
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+    <div id="message" class="mt-3"></div>
+</div>
+<script src="{{ asset('js/suggest_platform.js') }}"></script>
+</body>
+</html>
