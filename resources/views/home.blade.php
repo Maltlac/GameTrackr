@@ -25,15 +25,19 @@
 <div style="height:70px"></div> <!-- espace sous navbar -->
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Jeux populaires</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="m-0">Jeux populaires</h1>
+        <a href="{{ route('suggest.game') }}" class="btn btn-primary">Proposer un jeu</a>
+    </div>
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
         @foreach($games as $game)
             <div class="col">
                 <div class="card h-100">
                     <img src="{{ $game->cover_url ?: 'https://placehold.co/400x200/222/fff?text=' . urlencode($game->title) }}" class="card-img-top" alt="{{ $game->title }}">
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $game->title }}</h5>
-                        <p class="card-text">{{ $game->description ?? 'Aucune description.' }}</p>
+                        <p class="card-text flex-grow-1">{{ $game->description ?? 'Aucune description.' }}</p>
+                        <a href="{{ route('suggest.platform', ['game' => $game->id_game]) }}" class="btn btn-outline-light mt-2">Proposer une plateforme</a>
                     </div>
                 </div>
             </div>
