@@ -38,7 +38,7 @@
             <label class="form-label">Genres</label>
             <select id="gameGenres" class="form-select" multiple>
                 @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    <option value="{{ $genre->id_genre }}">{{ $genre->name }}</option>
                 @endforeach
             </select>
         </div>
@@ -46,50 +46,13 @@
         @foreach($platforms as $platform)
             <div class="mb-3">
                 <label class="form-label">{{ $platform->name }}</label>
-                <input type="text" class="form-control platform-link" data-platform-id="{{ $platform->id }}" placeholder="Lien vers {{ $platform->name }}">
+                <input type="text" class="form-control platform-link" data-platform-id="{{ $platform->id_platform }}" placeholder="Lien vers {{ $platform->name }}">
             </div>
         @endforeach
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
     <div id="genreMessage" class="mb-4"></div>
 
-    <h2 class="mt-5">Suggestions de jeux</h2>
-    <ul class="list-group mb-4" id="gameSuggestions">
-        @forelse($gameSuggestions as $suggestion)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>{{ $suggestion->title }}</span>
-                <button class="btn btn-sm btn-success approve-game" data-id="{{ $suggestion->id }}">Valider</button>
-
-    <h2 class="mt-5">Suggestions de jeux</h2>
-    <ul class="list-group mb-4">
-        @forelse($gameSuggestions as $suggestion)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>{{ $suggestion->title }}</span>
-
-            </li>
-        @empty
-            <li class="list-group-item">Aucune suggestion.</li>
-        @endforelse
-    </ul>
-
-    <h2>Suggestions de plateformes</h2>
-
-    <ul class="list-group" id="platformSuggestions">
-        @forelse($platformSuggestions as $suggestion)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>{{ $suggestion->platform }} - {{ $suggestion->link }}</span>
-                <button class="btn btn-sm btn-success approve-platform" data-id="{{ $suggestion->id }}">Valider</button>
-
-    <ul class="list-group">
-        @forelse($platformSuggestions as $suggestion)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>{{ $suggestion->platform }} - {{ $suggestion->link }}</span>
-
-            </li>
-        @empty
-            <li class="list-group-item">Aucune suggestion.</li>
-        @endforelse
-    </ul>
     <div id="gameMessage" class="mb-4"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

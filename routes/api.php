@@ -32,8 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/games', [GameController::class, 'index']);
 
-Route::post('/games', [GameController::class, 'store']);
-
 Route::get('/games/{id_game}', [GameController::class, 'show']);
 
 Route::post('/suggestions/games', [GameSuggestionController::class, 'store']);

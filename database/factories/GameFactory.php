@@ -16,7 +16,6 @@ class GameFactory extends Factory
             'description' => $this->faker->optional()->paragraph,
             'cover_url' => $this->faker->optional()->imageUrl(),
             'release_date' => $this->faker->optional()->date(),
-            'percentage' => $this->faker->optional()->randomFloat(2, 0, 100),
         ];
     }
 }

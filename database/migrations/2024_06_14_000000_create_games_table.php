@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('cover_url')->nullable();
             $table->date('release_date')->nullable();
-            $table->decimal('percentage', 5, 2)->nullable(); // progression du jeu (optionnel)
             $table->timestamps();
         });
     }
