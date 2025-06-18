@@ -2,6 +2,7 @@ function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     localStorage.removeItem('is_admin');
+    document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
     window.location.reload();
 }
 

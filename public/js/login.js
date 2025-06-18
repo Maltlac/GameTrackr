@@ -13,6 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         const data = await response.json();
         if (response.ok && data.token) {
             localStorage.setItem('token', data.token);
+            document.cookie = 'auth_token=' + data.token + '; path=/';
             if (data.user && data.user.name) {
                 localStorage.setItem('name', data.user.name);
             }
