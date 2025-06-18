@@ -24,9 +24,10 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     }
 
     try {
-        const response = await fetch('/api/register', {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const response = await fetch('/register', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': token },
             body: JSON.stringify({ name, email, password, password_confirmation })
         });
         const data = await response.json();

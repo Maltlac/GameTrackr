@@ -12,7 +12,11 @@ Route::get('/suggest-platform/{game?}', function ($game = null) {
     return view('suggest_platform', ['game' => $game]);
 })->name('suggest.platform');
 
-Route::middleware(['attach.token','auth:sanctum','admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/games/create', [AdminController::class, 'createGame'])->name('games.create');
     Route::get('/platforms/create', [AdminController::class, 'createPlatform'])->name('platforms.create');

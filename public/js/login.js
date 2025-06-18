@@ -5,15 +5,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const messageDiv = document.getElementById('message');
     messageDiv.innerHTML = '';
     try {
-        const response = await fetch('/api/login', {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const response = await fetch('/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': token },
             body: JSON.stringify({ email, password })
         });
         const data = await response.json();
         if (response.ok && data.token) {
             localStorage.setItem('token', data.token);
-            document.cookie = 'auth_token=' + data.token + '; path=/';
             if (data.user && data.user.name) {
                 localStorage.setItem('name', data.user.name);
             }

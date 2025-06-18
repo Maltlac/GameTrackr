@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 
@@ -24,6 +25,8 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('apitoken')->plainTextToken;
+
+        Auth::login($user);
 
         return response()->json([
             'user' => $user,
@@ -48,6 +51,8 @@ class AuthController extends Controller
 
         $token = $user->createToken('apitoken')->plainTextToken;
 
+        Auth::login($user);
+
         return response()->json([
             'user' => $user,
             'token' => $token,
@@ -57,6 +62,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+        if ($request->user()) {
+            $request->user()->currentAccessToken()->delete();
+            Auth::logout();
+        }
+
         return response()->json(['message' => 'Logged out']);
     }
 
