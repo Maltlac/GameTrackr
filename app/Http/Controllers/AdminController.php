@@ -34,7 +34,37 @@ class AdminController extends Controller
     public function suggestions()
     {
         $gameSuggestions = GameSuggestion::where('approved', false)->get();
-        $platformSuggestions = PlatformSuggestion::where('approved', false)->get();
-        return view('admin.suggestions', compact('gameSuggestions', 'platformSuggestions'));
+        return view('admin.suggestions', compact('gameSuggestions'));
+    }
+
+    
+    public function gererJeux(Request $request)
+    {
+        $items = $request->input('pagination', 10);
+        $query = \App\Models\Game::query();
+
+        if ($search = $request->input('search')) {
+            $query->where('title', 'like', "%$search%");
+        }
+
+        $games = $query->orderByDesc('created_at')->paginate($items);
+
+        return view('admin.gererJeux', compact('games', 'items'));
+    }
+
+    public function destroyGame($id)
+    {
+        $game = \App\Models\Game::findOrFail($id);
+        $game->delete();
+
+        return redirect()->route('admin.games.show')->with('success', 'Jeu supprimé avec succès.');
+    }
+
+    public function editGame($id)
+    {
+        $game = \App\Models\Game::with(['genres', 'platforms'])->findOrFail($id);
+        $genres = \App\Models\Genre::all();
+        $platforms = \App\Models\Platform::all();
+        return view('admin.game_form', compact('game', 'genres', 'platforms'));
     }
 }

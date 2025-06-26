@@ -18,11 +18,20 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 
 Route::middleware(['auth','admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/admin/games', [AdminController::class, 'gererJeux'])->name('games.show');
     Route::get('/games/create', [AdminController::class, 'createGame'])->name('games.create');
+    Route::delete('/games/{game}', [AdminController::class, 'destroyGame'])->name('games.destroy');
+    Route::post('/gamesuptate/{game}', [AdminController::class, 'updateGame'])->name('games.edit');
+    Route::get('/games/{game}/edit', [AdminController::class, 'editGame'])->name('games.edit');
+
+
     Route::get('/platforms/create', [AdminController::class, 'createPlatform'])->name('platforms.create');
     Route::get('/genres/create', [AdminController::class, 'createGenre'])->name('genres.create');
     Route::get('/suggestions', [AdminController::class, 'suggestions'])->name('suggestions');
 });
+
+// Page détail jeu
+Route::get('/games/{id}', [\App\Http\Controllers\GameController::class, 'showDetail'])->name('games.detail');
 
 // Fallback : toute autre route renvoie vers la home
 Route::fallback(function () {

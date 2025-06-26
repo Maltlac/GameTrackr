@@ -7,21 +7,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .game-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#">GameTrackr</a>
-        <form class="d-flex ms-3 me-auto" role="search" style="max-width:400px;">
-            <input class="form-control me-2 search-bar" type="search" placeholder="Rechercher un jeu..." aria-label="Rechercher">
-            <button class="btn btn-outline-light" type="submit">Rechercher</button>
-        </form>
-        <ul class="navbar-nav ms-auto align-items-center" id="navbar-right">
-            {{-- Dynamique JS --}}
-        </ul>
-    </div>
-</nav>
-
+@include('navbar.navbar')
 <div style="height:70px"></div> <!-- espace sous navbar -->
 
 <div class="container mt-5">
@@ -32,12 +27,12 @@
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
         @foreach($games as $game)
             <div class="col">
-                <div class="card h-100">
-                    <img src="{{ $game->cover_url ?: 'https://placehold.co/400x200/222/fff?text=' . urlencode($game->title) }}" class="card-img-top" alt="{{ $game->title }}">
+                <div class="card h-75">
+                    <a href="{{ url('/games/' . $game->id_game) }}">
+                        <img src="{{ $game->cover_url ?: 'https://placehold.co/400x220/222/fff?text=' . urlencode($game->title) }}" class="card-img-top game-img" alt="{{ $game->title }}">
+                    </a>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $game->title }}</h5>
-                        <p class="card-text flex-grow-1">{{ $game->description ?? 'Aucune description.' }}</p>
-                        <a href="{{ route('suggest.platform', ['game' => $game->id_game]) }}" class="btn btn-outline-light mt-2">Proposer une plateforme</a>
                     </div>
                 </div>
             </div>
@@ -49,8 +44,6 @@
         @endif
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('js/home.js') }}"></script>
 </body>
 </html>

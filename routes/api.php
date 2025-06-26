@@ -9,6 +9,7 @@ use App\Http\Controllers\PlatformSuggestionController;
 
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ScrapController;
 
 
 /*
@@ -35,9 +36,9 @@ Route::get('/games', [GameController::class, 'index']);
 Route::get('/games/{id_game}', [GameController::class, 'show']);
 
 Route::post('/suggestions/games', [GameSuggestionController::class, 'store']);
-Route::post('/suggestions/platforms', [PlatformSuggestionController::class, 'store']);
 
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+
 
     Route::post('/games', [GameController::class, 'store']);
     Route::put('/games/{game}', [GameController::class, 'update']);
@@ -52,5 +53,6 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
 
     Route::post('/suggestions/games/{suggestion}/approve', [GameSuggestionController::class, 'approve']);
-    Route::post('/suggestions/platforms/{suggestion}/approve', [PlatformSuggestionController::class, 'approve']);
 });
+
+Route::get('/scrap-price', [ScrapController::class, 'steamPrice']);

@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-dark text-light">
+    @include('navbar.navbar')
+<div style="height:70px"></div> <!-- espace sous navbar -->
 <div class="container mt-5">
     <h1 class="mb-4">Proposer un jeu</h1>
     <form id="suggestGameForm">
@@ -26,6 +28,7 @@
     </form>
     <div id="message" class="mt-3"></div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/suggest_game.js') }}"></script>
 </body>
 </html>

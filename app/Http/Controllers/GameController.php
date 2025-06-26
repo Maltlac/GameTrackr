@@ -28,32 +28,38 @@ class GameController extends Controller
         $validated = $request->validate([
             'title' => 'required|string',
             'description' => 'nullable|string',
-            'cover_url' => 'nullable|url',
+            'cover_url' => 'nullable|string',
             'release_date' => 'nullable|date',
-            'genres' => 'sometimes|array',
-            'genres.*' => 'integer|exists:genres,id_genre',
-            'platform_links' => 'sometimes|array',
         ]);
-
-        $genres = $validated['genres'] ?? [];
-        $platformLinks = $validated['platform_links'] ?? [];
-        unset($validated['genres'], $validated['platform_links']);
 
         $game = Game::create($validated);
 
-        if (!empty($genres)) {
-            $game->genres()->attach($genres);
+        // Récupération des genres (array d'IDs)
+        $genres = $request->input('genres', []);
+        if (!empty($genres) && is_array($genres)) {
+            // S'assure que les genres existent et évite les doublons
+            $genreIds = \App\Models\Genre::whereIn('id_genre', $genres)->pluck('id_genre')->toArray();
+            $game->genres()->sync($genreIds);
         }
 
-        if (!empty($platformLinks)) {
-            foreach ($platformLinks as $platformId => $link) {
-                if ($link !== null && $link !== '') {
-                    $game->platforms()->attach($platformId, ['link' => $link]);
+        // Récupération des plateformes (array d'objets {id_platform, url})
+        $platforms = $request->input('platforms', []);
+        if (!empty($platforms) && is_array($platforms)) {
+            $pivotData = [];
+            foreach ($platforms as $platform) {
+                if (!empty($platform['id_platform']) && !empty($platform['url'])) {
+                    $pivotData[$platform['id_platform']] = ['link' => $platform['url']];
                 }
+            }
+            if (!empty($pivotData)) {
+                // S'assure que les plateformes existent
+                $validPlatformIds = \App\Models\Platform::whereIn('id_platform', array_keys($pivotData))->pluck('id_platform')->toArray();
+                $filteredPivotData = array_intersect_key($pivotData, array_flip($validPlatformIds));
+                $game->platforms()->sync($filteredPivotData);
             }
         }
 
-        return response()->json($game->load(['genres', 'platforms']), 201);
+        return response()->json(['id_game' => $game->id_game], 201);
     }
 
     public function update(Request $request, Game $game)
@@ -94,4 +100,12 @@ class GameController extends Controller
         $game->delete();
         return response()->json(['message' => 'Deleted']);
     }
+
+    public function showDetail($id)
+    {
+        $game = Game::with(['genres', 'platforms'])->findOrFail($id);
+        return view('game', compact('game'));
+    }
 }
+
+

@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-dark text-light">
+    @include('navbar.navbar')
+<div style="height:70px"></div> <!-- espace sous navbar -->
 <div class="container mt-5">
     <h1 class="mb-4">Ajouter un genre</h1>
     <form id="addGenreForm" class="mb-3">

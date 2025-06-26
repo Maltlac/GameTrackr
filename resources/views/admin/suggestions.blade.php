@@ -2,7 +2,7 @@
 <html lang="fr" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Suggestions en attente</title>
+    <title>Suggestions de jeux en attente</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -15,18 +15,6 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>{{ $suggestion->title }}</span>
                 <button class="btn btn-sm btn-success approve-game" data-id="{{ $suggestion->id }}">Valider</button>
-            </li>
-        @empty
-            <li class="list-group-item">Aucune suggestion.</li>
-        @endforelse
-    </ul>
-
-    <h2>Plateformes</h2>
-    <ul class="list-group" id="platformSuggestions">
-        @forelse($platformSuggestions as $suggestion)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>{{ $suggestion->platform }} - {{ $suggestion->link }}</span>
-                <button class="btn btn-sm btn-success approve-platform" data-id="{{ $suggestion->id }}">Valider</button>
             </li>
         @empty
             <li class="list-group-item">Aucune suggestion.</li>

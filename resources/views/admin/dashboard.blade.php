@@ -7,6 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-dark text-light">
+
+    @include('navbar.navbar')
+    <div style="height:70px"></div> <!-- espace sous navbar -->
+
 <div class="container mt-5">
     <h1 class="mb-4">Panel Administration</h1>
     <table class="table table-dark table-striped">
@@ -19,9 +23,9 @@
         </thead>
         <tbody>
         <tr>
-            <td>Ajouter un jeu</td>
-            <td>Créer un nouveau jeu et l'associer à des genres et plateformes</td>
-            <td><a class="btn btn-primary" href="{{ route('admin.games.create') }}">Ouvrir</a></td>
+            <td>Voir les jeux</td>
+            <td>Gérer les jeux, modification, création et suppression possible</td>
+            <td><a class="btn btn-primary" href="{{ route('admin.games.show') }}">Ouvrir</a></td>
         </tr>
         <tr>
             <td>Ajouter une plateforme</td>
@@ -35,7 +39,7 @@
         </tr>
         <tr>
             <td>Valider les suggestions</td>
-            <td>Jeux et plateformes proposés par les utilisateurs</td>
+            <td>Jeux proposés par les utilisateurs</td>
             <td><a class="btn btn-primary" href="{{ route('admin.suggestions') }}">Ouvrir</a></td>
         </tr>
         </tbody>
