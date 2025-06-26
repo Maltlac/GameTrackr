@@ -48,11 +48,35 @@ document.addEventListener('DOMContentLoaded', function() {
             method = 'PUT';
         }
 
-        let response = await fetch(urlApi, {
-            method: method,
-            headers: headers,
-            body: JSON.stringify({ title, description, cover_url, release_date, genres, platforms })
-        });
+        let response;
+        try {
+            response = await fetch(urlApi, {
+                method: method,
+                headers: headers,
+                body: JSON.stringify({ 
+                    title, 
+                    description, 
+                    cover_url, 
+                    release_date, 
+                    genres, 
+                    // Correction : pour la modification il faut envoyer platform_links pour l'API Laravel
+                    platform_links: Object.fromEntries(
+                        document.querySelectorAll('.platform-link').length
+                        ? Array.from(document.querySelectorAll('.platform-link')).map(input => [
+                            input.getAttribute('data-platform-id'),
+                            input.value.trim()
+                        ])
+                        : []
+                    ),
+                    // Pour la création, on garde platforms (array d'objets)
+                    platforms
+                })
+            });
+        } catch (err) {
+            showModal('Erreur réseau lors de la sauvegarde du jeu.');
+            return;
+        }
+
         let data;
         try {
             data = await response.json();
@@ -60,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showModal('Erreur lors de la sauvegarde du jeu (réponse invalide).');
             return;
         }
+
         if (!response.ok || (!window.isEdit && !data.id_game)) {
             showModal('Erreur lors de la sauvegarde du jeu.<br>' + (data && data.message ? data.message : ''));
             return;
@@ -71,9 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1200);
         } else {
             showModal(`Le jeu a bien été ajouté avec l'ID <b>${data.id_game}</b>.`);
-        }
-        // Ne reset pas le formulaire en édition
-        if (!window.isEdit) {
             this.reset();
             document.querySelectorAll('.genre-btn.selected').forEach(btn => btn.classList.remove('selected'));
             selectedGenres.clear();

@@ -56,8 +56,9 @@
                         <hr>
                         <h5>Plateformes</h5>
                         <ul class="list-group list-group-flush">
-                            @if($game->platforms && count($game->platforms))
+                            @if($game->platforms && $game->platforms->count())
                                 @foreach($game->platforms as $platform)
+                                    @if($platform->pivot && $platform->pivot->link)
                                     <li class="list-group-item bg-dark text-light d-flex align-items-center">
                                         <span class="me-2"><i class="bi bi-controller"></i></span>
                                         <a href="{{ $platform->pivot->link }}" class="platform-link" target="_blank" data-platform="{{ $platform->id_platform }}" data-url="{{ $platform->pivot->link }}">
@@ -65,7 +66,11 @@
                                         </a>
                                         <span class="ms-2 text-info" id="price-{{ $platform->id_platform }}"></span>
                                     </li>
+                                    @endif
                                 @endforeach
+                                @if($game->platforms->filter(fn($p) => $p->pivot && $p->pivot->link)->isEmpty())
+                                    <li class="list-group-item bg-dark text-secondary">Aucune plateforme renseignée</li>
+                                @endif
                             @else
                                 <li class="list-group-item bg-dark text-secondary">Aucune plateforme renseignée</li>
                             @endif
