@@ -53,4 +53,9 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
+
+    public function games()
+    {
+        return $this->belongsToMany(\App\Models\Game::class, 'user_game', 'id_user', 'id_game');
+    }
 }

@@ -75,12 +75,39 @@
                                 <li class="list-group-item bg-dark text-secondary">Aucune plateforme renseignée</li>
                             @endif
                         </ul>
+                        <div class="mt-4">
+                            @auth
+                                <button id="addToMyGamesBtn" class="btn btn-success w-100" data-game-id="{{ $game->id_game }}">
+                                    <i class="bi bi-plus-circle"></i> Ajouter à mes jeux
+                                </button>
+                                <div id="addToMyGamesMsg" class="mt-2"></div>
+                                <div id="userGameFormContainer" class="mt-3 d-none">
+                                    <form id="userGameForm">
+                                        <div class="mb-2">
+                                            <label for="playtime" class="form-label">Temps de jeu (heures)</label>
+                                            <input type="number" min="0" step="0.1" class="form-control" id="playtime" name="playtime">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="progress" class="form-label">Progression (%)</label>
+                                            <input type="number" min="0" max="100" step="1" class="form-control" id="progress" name="progress">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                                        <div id="userGameFormMsg" class="mt-2"></div>
+                                    </form>
+                                    <div id="userGameStats" class="mt-2"></div>
+                                </div>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="{{ asset('js/gamesShow.js') }}"></script>
+    <script src="{{ asset('js/gamesShow.js') }}"></script>
+    @auth
+    <script src="{{ asset('js/gameUserPivot.js') }}"></script>
+    @endauth
 </body>
 </html>
+      

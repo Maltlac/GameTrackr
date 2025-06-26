@@ -106,6 +106,29 @@ class GameController extends Controller
         $game = Game::with(['genres', 'platforms'])->findOrFail($id);
         return view('game', compact('game'));
     }
+
+    public function autocomplete(Request $request)
+    {
+        $q = $request->query('q');
+        if (!$q) return response()->json([]);
+        $games = \App\Models\Game::where('title', 'like', '%' . $q . '%')
+            ->orderBy('title')
+            ->limit(10)
+            ->get(['id_game', 'title']);
+        return response()->json($games);
+    }
+
+    public function searchPage(Request $request)
+    {
+        $q = $request->query('q');
+        $games = [];
+        if ($q) {
+            $games = \App\Models\Game::where('title', 'like', '%' . $q . '%')
+                ->orderBy('title')
+                ->get();
+        }
+        return view('search_results', compact('games', 'q'));
+    }
 }
 
 

@@ -31,13 +31,6 @@ class AdminController extends Controller
         return view('admin.genre_form');
     }
 
-    public function suggestions()
-    {
-        $gameSuggestions = GameSuggestion::where('approved', false)->get();
-        return view('admin.suggestions', compact('gameSuggestions'));
-    }
-
-    
     public function gererJeux(Request $request)
     {
         $items = $request->input('pagination', 10);

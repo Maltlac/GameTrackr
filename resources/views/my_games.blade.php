@@ -2,7 +2,7 @@
 <html lang="fr" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>GameTrackr - Accueil</title>
+    <title>Ma bibliothèque de jeux</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
@@ -10,14 +10,14 @@
 </head>
 <body>
 @include('navbar.navbar')
-<div style="height:70px"></div> <!-- espace sous navbar -->
-
+<div style="height:70px"></div>
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="m-0">Jeux populaires</h1>
+        <h1 class="m-0">Ma bibliothèque</h1>
+        <span class="badge bg-secondary fs-5">Total heures jouées : {{ $totalPlaytime ?? 0 }}</span>
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-        @foreach($games as $game)
+        @forelse($games as $game)
             <div class="col">
                 <div class="card h-75">
                     <a href="{{ url('/games/' . $game->id_game) }}">
@@ -28,12 +28,11 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-        @if($games->isEmpty())
+        @empty
             <div class="col">
-                <div class="alert alert-secondary text-center">Aucun jeu à afficher.</div>
+                <div class="alert alert-secondary text-center">Aucun jeu dans votre bibliothèque.</div>
             </div>
-        @endif
+        @endforelse
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

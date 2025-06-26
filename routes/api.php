@@ -22,20 +22,25 @@ use App\Http\Controllers\ScrapController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('/games/autocomplete', [\App\Http\Controllers\GameController::class, 'autocomplete']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/users/me/games', [\App\Http\Controllers\UserGameController::class, 'addToMyGames']);
+    Route::get('/users/me/games/{id_game}/owned', [\App\Http\Controllers\UserGameController::class, 'isOwned']);
+    Route::get('/users/me/games/{id_game}/pivot', [\App\Http\Controllers\UserGameController::class, 'getPivot']);
+    Route::put('/users/me/games/{id_game}/pivot', [\App\Http\Controllers\UserGameController::class, 'updatePivot']);
 });
 
 Route::get('/games', [GameController::class, 'index']);
 
 Route::get('/games/{id_game}', [GameController::class, 'show']);
 
-Route::post('/suggestions/games', [GameSuggestionController::class, 'store']);
+
+
 
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 
@@ -52,7 +57,6 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::put('/genres/{genre}', [GenreController::class, 'update']);
     Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
 
-    Route::post('/suggestions/games/{suggestion}/approve', [GameSuggestionController::class, 'approve']);
 });
 
 Route::get('/scrap-price', [ScrapController::class, 'steamPrice']);

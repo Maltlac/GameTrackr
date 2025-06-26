@@ -37,11 +37,6 @@
             <td>Créer une nouvelle catégorie de jeu</td>
             <td><a class="btn btn-primary" href="{{ route('admin.genres.create') }}">Ouvrir</a></td>
         </tr>
-        <tr>
-            <td>Valider les suggestions</td>
-            <td>Jeux proposés par les utilisateurs</td>
-            <td><a class="btn btn-primary" href="{{ route('admin.suggestions') }}">Ouvrir</a></td>
-        </tr>
         </tbody>
     </table>
 </div>

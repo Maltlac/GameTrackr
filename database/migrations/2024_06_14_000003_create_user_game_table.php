@@ -11,9 +11,10 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_game');
             $table->enum('status', ['wishlist', 'owned', 'in-progress', 'finished']);
-            $table->integer('progression')->nullable(); // 0-100, ou autre format
             $table->integer('note')->nullable();
             $table->timestamp('added_at')->useCurrent();
+            $table->float('playtime')->nullable();
+            $table->integer('progress')->nullable();
 
             $table->primary(['id_user', 'id_game']);
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
