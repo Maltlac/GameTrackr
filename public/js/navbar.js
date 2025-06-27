@@ -16,10 +16,10 @@ function renderNavbar() {
     if (!token) {
         navbarRight.innerHTML = `
             <li class="nav-item">
-                <a class="btn btn-outline-light me-2" href="login">Connexion</a>
+                <a class="btn btn-outline-light me-2" href="/login">Connexion</a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-primary" href="register">Inscription</a>
+                <a class="btn btn-primary" href="/register">Inscription</a>
             </li>
         `;
     } else {
@@ -30,7 +30,6 @@ function renderNavbar() {
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     ${isAdmin === '1' || isAdmin === 'true' ? '<li><a class="dropdown-item" href="/admin">Administration</a></li><li><hr class="dropdown-divider"></li>' : ''}
-                    <li><a class="dropdown-item" href="#">Ma wishlist</a></li>
                     <li><a class="dropdown-item" href="/my-games">Mes jeux</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Déconnexion</a></li>

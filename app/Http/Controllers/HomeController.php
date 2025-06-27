@@ -7,9 +7,9 @@ use App\Models\Game;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $games = Game::orderByDesc('created_at')->take(5)->get();
+        $games = \App\Models\Game::orderBy('title')->paginate(12);
         return view('home', compact('games'));
     }
 }

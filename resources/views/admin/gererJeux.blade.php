@@ -70,7 +70,7 @@
                                     <td>{{ Str::limit($game->description, 60) }}</td>
                                     <td>{{ $game->release_date }}</td>
                                     <td>
-                                        <a href="{{ route('admin.games.show', $game->id_game) }}" class="btn btn-sm btn-success" title="Voir">
+                                        <a href="{{ route('games.detail', $game->id_game) }}" class="btn btn-sm btn-success" title="Voir">
                                             <i class="bi bi-search"></i>
                                         </a>
                                     </td>
@@ -82,9 +82,9 @@
                     <div class="panel-footer" style="margin-top:-16px">
                         <div class="row">
                             @if ($games->hasPages())
-                            <ul class="pagination hidden-xs pull-right">
-                                {!! $games->appends(Request::except('page'))->render() !!}
-                            </ul>
+                                <div class="d-flex justify-content-center mt-3">
+                                    {{ $games->appends(Request::except('page'))->links('pagination::bootstrap-5') }}
+                                </div>
                             @endif
                         </div>
                     </div>

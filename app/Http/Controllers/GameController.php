@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Game::all(), 200);
+        $perPage = $request->query('per_page', 12);
+        return response()->json(Game::paginate($perPage), 200);
     }
 
     public function show($id_game)
@@ -121,11 +122,13 @@ class GameController extends Controller
     public function searchPage(Request $request)
     {
         $q = $request->query('q');
+        $perPage = 12;
         $games = [];
         if ($q) {
             $games = \App\Models\Game::where('title', 'like', '%' . $q . '%')
                 ->orderBy('title')
-                ->get();
+                ->paginate($perPage)
+                ->appends(['q' => $q]);
         }
         return view('search_results', compact('games', 'q'));
     }
